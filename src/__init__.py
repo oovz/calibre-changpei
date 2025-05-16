@@ -24,7 +24,7 @@ CHANGPEI_CHAPTER_LIST = "https://www.gongzicp.com/webapi/novel/chapterGetList?ni
 CHANGPEI_NO_BOOKCOVER_URL = "https://resourcecp-cdn.gongzicp.com/files/images/nocover.jpg"
 
 PROVIDER_ID = "changpei"
-PROVIDER_VERSION = (1, 0, 0)
+PROVIDER_VERSION = (1, 1, 0)
 PROVIDER_AUTHOR = "Otaro"
 
 SOURCE_PUBLISHER = "长佩文学"
@@ -244,6 +244,11 @@ class Changpei(Source):
             except Exception as e:
                 log.exception("Error using API: %s" % e)
 
+            return None
+        
+        # If we have other identifiers, give up
+        if identifiers:
+            log.info("Other identifiers found, giving up")
             return None
 
         # Use search API
