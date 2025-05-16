@@ -24,7 +24,7 @@ CHANGPEI_CHAPTER_LIST = "https://www.gongzicp.com/webapi/novel/chapterGetList?ni
 CHANGPEI_NO_BOOKCOVER_URL = "https://resourcecp-cdn.gongzicp.com/files/images/nocover.jpg"
 
 PROVIDER_ID = "changpei"
-PROVIDER_VERSION = (1, 1, 0)
+PROVIDER_VERSION = (1, 1, 1)
 PROVIDER_AUTHOR = "Otaro"
 
 SOURCE_PUBLISHER = "长佩文学"
@@ -249,6 +249,11 @@ class Changpei(Source):
         # If we have other identifiers, give up
         if identifiers:
             log.info("Other identifiers found, giving up")
+            return None
+        
+        # If we don't have ID, ensure we have a title
+        if not title:
+            log.error('Title is required for search')
             return None
 
         # Use search API
